@@ -1,0 +1,271 @@
+Aquí tienes el código HTML completo listo para renderizar como página estática interactiva y responsiva en **GitHub Pages**.
+
+Incluye un **Diagrama de Gantt dinámico con Chart.js**, tarjetas de estadísticas y la **tabla unificada sincronizada**. Solo debes guardarlo en tu repositorio con el nombre `index.html` y activar GitHub Pages en los ajustes del repositorio (`Settings` > `Pages` > `Deploy from a branch`).
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Investigación - Anteproyecto PLN & Mobility</title>
+    <!-- Tailwind CSS para Estilos Modernos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js + Adapter de Fechas para el Diagrama de Gantt -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto space-y-8">
+        
+        <!-- Header Principal -->
+        <header class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase">Sección 8. Cronograma</span>
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900 mt-1">Planificación y Cronograma de Actividades</h1>
+            <p class="text-slate-600 mt-2 text-sm md:text-base leading-relaxed">
+                Planificación temporal estructurada mediante el estándar metodológico <strong>CRISP-DM</strong> y adaptada a un marco de trabajo <strong>Scrumban</strong> para el monitoreo de avance a lo largo de <strong>32 semanas (8 meses)</strong>.
+            </p>
+        </header>
+
+        <!-- Tarjetas de Resumen General -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Duración Total</p>
+                <p class="text-2xl font-bold text-indigo-600 mt-1">32 Semanas</p>
+                <p class="text-xs text-slate-400 mt-1">8 meses continuos</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Objetivos Específicos</p>
+                <p class="text-2xl font-bold text-emerald-600 mt-1">5 Fases</p>
+                <p class="text-xs text-slate-400 mt-1">Secuenciales e integradas</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Actividades Técnicas</p>
+                <p class="text-2xl font-bold text-amber-600 mt-1">13 Tareas</p>
+                <p class="text-xs text-slate-400 mt-1">Desglosadas por objetivo</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold uppercase">Entregables Tangibles</p>
+                <p class="text-2xl font-bold text-purple-600 mt-1">13 Productos</p>
+                <p class="text-xs text-slate-400 mt-1">Modelos, pipelines y tableros</p>
+            </div>
+        </section>
+
+        <!-- Diagrama de Gantt Interactivo -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">Diagrama de Gantt Interactivo</h2>
+                    <p class="text-xs text-slate-500">Pasa el cursor sobre las barras para consultar los periodos y detalles de cada actividad.</p>
+                </div>
+            </div>
+            
+            <div class="relative w-full h-[450px]">
+                <canvas id="ganttChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Matriz Unificada de Cronograma -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 border-b border-slate-100">
+                <h2 class="text-lg font-bold text-slate-900">Matriz Unificada de Actividades y Entregables</h2>
+                <p class="text-xs text-slate-500 mt-1">Articulación técnica directa entre los 5 Objetivos Específicos del anteproyecto.</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-700 font-semibold uppercase text-xs border-b border-slate-200">
+                            <th class="py-3 px-4 w-1/4">Objetivo Específico</th>
+                            <th class="py-3 px-4 w-1/3">Actividad Principal</th>
+                            <th class="py-3 px-4 w-1/6 text-center">Periodo</th>
+                            <th class="py-3 px-4 w-1/4">Resultado Esperado (Entregable Tangible)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 text-slate-700">
+                        
+                        <!-- OE1 -->
+                        <tr class="hover:bg-indigo-50/30 transition-colors">
+                            <td class="py-4 px-4 font-medium text-slate-900 align-top" rowspan="3">
+                                <span class="inline-block px-2 py-0.5 mb-2 text-xs font-bold rounded bg-indigo-100 text-indigo-700">Objetivo 1</span><br>
+                                Recopilar comentarios y reseñas de usuarios de plataformas de transporte privado en Bogotá mediante Web Scraping para consolidar una base de datos estructurada.
+                            </td>
+                            <td class="py-3 px-4 align-top"><strong>1.1. Selección y parametrización de fuentes:</strong> Definición de tiendas oficiales (Google Play / App Store), variables a extraer (texto, fecha, estrellas, versión) y configuración del scraper en Apify.</td>
+                            <td class="py-3 px-4 text-center font-semibold text-indigo-600 bg-indigo-50/50 align-top rounded-lg">Semanas 1 a 3</td>
+                            <td class="py-3 px-4 align-top">Documento de especificación técnica de la muestra y agente colector funcional calibrado en Apify.</td>
+                        </tr>
+                        <tr class="hover:bg-indigo-50/30 transition-colors">
+                            <td class="py-3 px-4 align-top"><strong>1.2. Ejecución de la recolección masiva:</strong> Extracción automatizada del corpus histórico no estructurado mediante llamadas controladas a APIs públicas.</td>
+                            <td class="py-3 px-4 text-center font-semibold text-indigo-600 bg-indigo-50/50 align-top rounded-lg">Semanas 4 a 5</td>
+                            <td class="py-3 px-4 align-top">Repositorio de datos crudos descargados en formato JSON con cobertura temporal del sector en Bogotá.</td>
+                        </tr>
+                        <tr class="hover:bg-indigo-50/30 transition-colors border-b-2 border-slate-200">
+                            <td class="py-3 px-4 align-top"><strong>1.3. Construcción del pipeline de persistencia:</strong> Modelado de esquemas relacionales e ingesta automatizada mediante scripts en Python hacia AWS RDS (SQL Server).</td>
+                            <td class="py-3 px-4 text-center font-semibold text-indigo-600 bg-indigo-50/50 align-top rounded-lg">Semanas 6 a 8</td>
+                            <td class="py-3 px-4 align-top">Base de datos relacional desplegada en la nube con esquemas relacionales creados y llaves primarias de deduplicación.</td>
+                        </tr>
+
+                        <!-- OE2 -->
+                        <tr class="hover:bg-emerald-50/30 transition-colors">
+                            <td class="py-4 px-4 font-medium text-slate-900 align-top" rowspan="3">
+                                <span class="inline-block px-2 py-0.5 mb-2 text-xs font-bold rounded bg-emerald-100 text-emerald-700">Objetivo 2</span><br>
+                                Preprocesar el lenguaje natural de las reseñas recolectadas adaptando los algoritmos al contexto bogotano para asegurar la calidad de datos.
+                            </td>
+                            <td class="py-3 px-4 align-top"><strong>2.1. Limpieza de ruidos sintácticos:</strong> Programación de funciones en Python para remoción de emojis, URLs, signos, números y normalización de minúsculas.</td>
+                            <td class="py-3 px-4 text-center font-semibold text-emerald-600 bg-emerald-50/50 align-top rounded-lg">Semanas 9 a 11</td>
+                            <td class="py-3 px-4 align-top">Módulo de depuración léxica y limpieza sintáctica funcional documentado en repositorio.</td>
+                        </tr>
+                        <tr class="hover:bg-emerald-50/30 transition-colors">
+                            <td class="py-3 px-4 align-top"><strong>2.2. Construcción de stopwords locales y tokenización:</strong> Filtrado gramatical estándar e integración del diccionario con modismos del transporte bogotano ("trancón", "carrera").</td>
+                            <td class="py-3 px-4 text-center font-semibold text-emerald-600 bg-emerald-50/50 align-top rounded-lg">Semanas 12 a 13</td>
+                            <td class="py-3 px-4 align-top">Diccionario adaptado de stopwords locales e índice de tokens depurados por reseña.</td>
+                        </tr>
+                        <tr class="hover:bg-emerald-50/30 transition-colors border-b-2 border-slate-200">
+                            <td class="py-3 px-4 align-top"><strong>2.3. Lematización contextual:</strong> Implementación del modelo morfológico en español (<code>es_core_news_lg</code>) con spaCy para la reducción a raíces semánticas.</td>
+                            <td class="py-3 px-4 text-center font-semibold text-emerald-600 bg-emerald-50/50 align-top rounded-lg">Semanas 14 a 16</td>
+                            <td class="py-3 px-4 align-top">Dataset preprocesado, normalizado y lematizado en AWS RDS listo para modelamiento.</td>
+                        </tr>
+
+                        <!-- OE3 -->
+                        <tr class="hover:bg-amber-50/30 transition-colors">
+                            <td class="py-4 px-4 font-medium text-slate-900 align-top" rowspan="3">
+                                <span class="inline-block px-2 py-0.5 mb-2 text-xs font-bold rounded bg-amber-100 text-amber-700">Objetivo 3</span><br>
+                                Implementar modelos de PLN y minería de datos mediante clasificación de texto y análisis basado en aspectos para la detección de percepciones críticas.
+                            </td>
+                            <td class="py-3 px-4 align-top"><strong>3.1. Extracción de aspectos y dimensiones de servicio:</strong> Etiquetado morfosintáctico (POS tagging) y reglas de dependencia para aislar atributos (seguridad, tarifa, conducta).</td>
+                            <td class="py-3 px-4 text-center font-semibold text-amber-600 bg-amber-50/50 align-top rounded-lg">Semanas 17 a 19</td>
+                            <td class="py-3 px-4 align-top">Matriz semántica de atributos de calidad asociados a adjetivos calificativos.</td>
+                        </tr>
+                        <tr class="hover:bg-amber-50/30 transition-colors">
+                            <td class="py-3 px-4 align-top"><strong>3.2. Calibración y Fine-Tuning de Transformers:</strong> Anotación manual del dataset de entrenamiento y ajuste fino de modelos contextuales en español (BETO / ROBERTuito).</td>
+                            <td class="py-3 px-4 text-center font-semibold text-amber-600 bg-amber-50/50 align-top rounded-lg">Semanas 20 a 22</td>
+                            <td class="py-3 px-4 align-top">Corpus calibrado con protocolo de doble anotación (<i>K</i> ≥ 0.70) y clasificadores contextuales entrenados.</td>
+                        </tr>
+                        <tr class="hover:bg-amber-50/30 transition-colors border-b-2 border-slate-200">
+                            <td class="py-3 px-4 align-top"><strong>3.3. Clasificación semántica multiclase:</strong> Despliegue del clasificador para la asignación masiva de polaridad (positiva, negativa, neutra) mapeada sobre los aspectos.</td>
+                            <td class="py-3 px-4 text-center font-semibold text-amber-600 bg-amber-50/50 align-top rounded-lg">Semanas 23 a 24</td>
+                            <td class="py-3 px-4 align-top">Modelo de PLN optimizado y pipeline de inferencia semántica ejecutado sobre la totalidad del corpus.</td>
+                        </tr>
+
+                        <!-- OE4 -->
+                        <tr class="hover:bg-blue-50/30 transition-colors">
+                            <td class="py-4 px-4 font-medium text-slate-900 align-top" rowspan="2">
+                                <span class="inline-block px-2 py-0.5 mb-2 text-xs font-bold rounded bg-blue-100 text-blue-700">Objetivo 4</span><br>
+                                Desarrollar un entorno de visualización interactivo empleando herramientas de BI para integrar indicadores de sentimiento y facilitando el análisis comparativo.
+                            </td>
+                            <td class="py-3 px-4 align-top"><strong>4.1. Formulación de KPIs y métricas de calidad:</strong> Definición matemática de métricas estratégicas (Índice de Satisfacción General, Tasa de Quejas de Seguridad, Volatilidad Tarifaria).</td>
+                            <td class="py-3 px-4 text-center font-semibold text-blue-600 bg-blue-50/50 align-top rounded-lg">Semanas 25 a 26</td>
+                            <td class="py-3 px-4 align-top">Documento técnico de especificación matemática de KPIs e indicadores cualitativos.</td>
+                        </tr>
+                        <tr class="hover:bg-blue-50/30 transition-colors border-b-2 border-slate-200">
+                            <td class="py-3 px-4 align-top"><strong>4.2. Construcción del tablero de control en Power BI:</strong> Conexión directa a AWS RDS, diseño de mapas de calor, series temporales y filtros comparativos entre plataformas.</td>
+                            <td class="py-3 px-4 text-center font-semibold text-blue-600 bg-blue-50/50 align-top rounded-lg">Semanas 27 a 28</td>
+                            <td class="py-3 px-4 align-top">Tablero de control interactivo en Power BI funcional y conectado a la base de datos.</td>
+                        </tr>
+
+                        <!-- OE5 -->
+                        <tr class="hover:bg-purple-50/30 transition-colors">
+                            <td class="py-4 px-4 font-medium text-slate-900 align-top" rowspan="2">
+                                <span class="inline-block px-2 py-0.5 mb-2 text-xs font-bold rounded bg-purple-100 text-purple-700">Objetivo 5</span><br>
+                                Validar la precisión del modelo y la utilidad de la herramienta mediante pruebas funcionales y métricas de desempeño estándar.
+                            </td>
+                            <td class="py-3 px-4 align-top"><strong>5.1. Evaluación estadística del clasificador:</strong> Cálculo de métricas estándar (Accuracy, Precision, Recall, F1-Score) sobre el 40% del corpus reservado para prueba y matrices de confusión.</td>
+                            <td class="py-3 px-4 text-center font-semibold text-purple-600 bg-purple-50/50 align-top rounded-lg">Semanas 29 a 30</td>
+                            <td class="py-3 px-4 align-top">Informe de validación estadística y métricas de desempeño del modelo lingüístico.</td>
+                        </tr>
+                        <tr class="hover:bg-purple-50/30 transition-colors">
+                            <td class="py-3 px-4 align-top"><strong>5.2. Pruebas de integración del pipeline y soporte:</strong> Verificación de refresco automático en Power BI ante inserciones en AWS RDS y redacción del informe final.</td>
+                            <td class="py-3 px-4 text-center font-semibold text-purple-600 bg-purple-50/50 align-top rounded-lg">Semanas 31 a 32</td>
+                            <td class="py-3 px-4 align-top">Informe final de investigación, documentación del pipeline de datos y sistema listo para sustentación.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-slate-400 py-4">
+            Anteproyecto de Investigación • Ingeniería de Sistemas • Bogotá, Colombia
+        </footer>
+
+    </div>
+
+    <!-- Script para renderizar el Diagrama de Gantt usando Chart.js -->
+    <script>
+        const ctx = document.getElementById('ganttChart').getContext('2d');
+
+        const ganttData = [
+            // Objetivo 1
+            { task: "1.1. Fuentes y Apify", start: 1, end: 3, color: '#6366f1', obj: "OE1" },
+            { task: "1.2. Recolección Masiva", start: 4, end: 5, color: '#6366f1', obj: "OE1" },
+            { task: "1.3. Pipeline AWS RDS", start: 6, end: 8, color: '#6366f1', obj: "OE1" },
+            // Objetivo 2
+            { task: "2.1. Limpieza Sintáctica", start: 9, end: 11, color: '#10b981', obj: "OE2" },
+            { task: "2.2. Stopwords Locales", start: 12, end: 13, color: '#10b981', obj: "OE2" },
+            { task: "2.3. Lematización spaCy", start: 14, end: 16, color: '#10b981', obj: "OE2" },
+            // Objetivo 3
+            { task: "3.1. Extracción Aspectos", start: 17, end: 19, color: '#f59e0b', obj: "OE3" },
+            { task: "3.2. Fine-Tuning BETO", start: 20, end: 22, color: '#f59e0b', obj: "OE3" },
+            { task: "3.3. Clasificación PLN", start: 23, end: 24, color: '#f59e0b', obj: "OE3" },
+            // Objetivo 4
+            { task: "4.1. Formulación KPIs", start: 25, end: 26, color: '#3b82f6', obj: "OE4" },
+            { task: "4.2. Tablero Power BI", start: 27, end: 28, color: '#3b82f6', obj: "OE4" },
+            // Objetivo 5
+            { task: "5.1. Evaluación F1-Score", start: 29, end: 30, color: '#a855f7', obj: "OE5" },
+            { task: "5.2. Integración y Cierre", start: 31, end: 32, color: '#a855f7', obj: "OE5" }
+        ];
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ganttData.map(d => d.task),
+                datasets: [{
+                    label: 'Rango de Ejecución (Semanas)',
+                    data: ganttData.map(d => [d.start, d.end]),
+                    backgroundColor: ganttData.map(d => d.color),
+                    borderRadius: 6,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const item = ganttData[context.dataIndex];
+                                return ` [${item.obj}] Semana ${item.start} a Semana ${item.end}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        min: 1,
+                        max: 32,
+                        title: {
+                            display: true,
+                            text: 'Eje Temporal (Semanas de Trabajo)',
+                            font: { weight: 'bold' }
+                        },
+                        ticks: { stepSize: 2 }
+                    },
+                    y: {
+                        ticks: { font: { size: 11 } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+```
